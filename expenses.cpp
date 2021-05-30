@@ -152,23 +152,25 @@ void expenses::Filter_By_Amount(int R1, int R2)
 	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
 	stack<string> filter_Name;
 	stack<date> filter_Date;
-
-	for (int i = 0; i <= Amount.size() - 1; i++) {
-		if (i >= R1 && i <= R2) {
-			filter_Amount.push(Amount[i]);
-			filter_category.push(Category[i]);
-			filter_Name.push(Name[i]);
-			filter_Date.push(Date[i]);
+	
+		for (int i = 0; i <= Amount.size() - 1; i++) {
+			if (i >= R1 && i <= R2) {
+				filter_Amount.push(Amount[i]);
+				filter_category.push(Category[i]);
+				filter_Name.push(Name[i]);
+				filter_Date.push(Date[i]);
+			}
 		}
-	}
 
-	for (int i = 0; i <= Amount.size() - 1; i++) {
-		cout << filter_Name.top() << "\t" << filter_Date.top().day << "\t" << filter_category.top() << "\t" << filter_Amount.top() << endl;
-		filter_Name.pop();
-		filter_Date.pop();
-		filter_Amount.pop();
-		filter_category.pop();
-	}
+		for (int i = 0; i <= Amount.size() - 1; i++) {
+			cout << "Name : " << filter_Name.top() << "\t" << "Day : " << filter_Date.top().day << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << endl;
+			filter_Name.pop();
+			filter_Date.pop();
+			filter_Amount.pop();
+			filter_category.pop();
+		}
+	
+	
 }
 void expenses::Filter_By_Category(string c)
 {
@@ -190,7 +192,7 @@ void expenses::Filter_By_Category(string c)
 	}
 	for (int i = 0; i <= Category.size() - 1; i++) 
 	{
-		cout << filter_Name.top() << "\t" << filter_Date.top().day << "\t" << filter_category.top() << "\t" << filter_Amount.top() << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Day : " << filter_Date.top().day << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_category.pop();
