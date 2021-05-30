@@ -4,6 +4,8 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <stack>
 using namespace std;
 
 
@@ -36,9 +38,9 @@ void expenses::Expenses_Info()
 	string name, category;
 	float amount;
 
-	char choice;
-	char choose;
-	do {
+	string choice;
+	//char choose;
+	
 		cout << "Enter how much is your income \n ";
 		cin >> Income;
 		Wallet_Components();
@@ -48,7 +50,7 @@ void expenses::Expenses_Info()
 		cout << "Enter number of expenses : \n";
 		cin >> Nexpenses;
 
-		for (int i = 0; i < Nexpenses; i++)
+		for (int i = 0 ; i < Nexpenses ; i++)
 		{
 			cout << "Enter Name Of Expense " << i+1 << "\n ";
 			cin >> name;
@@ -62,8 +64,9 @@ void expenses::Expenses_Info()
 			cout << "Enter Amount Of Expense " << i+1 << "\n";
 			cin >> amount;
 			Amount.push_back(amount);
-			cout << "Cash (c) Or Credit (r) ?\n";
+			cout << "Cash Or Credit ?\n";
 			cin >> choice;
+			walletType.push_back(choice);
 			/*if (choice == 'c' || choice == 'C')
 				reminig_cash = reminig_cash - amount;
 			else if (choice == 'r' || choice == 'R')
@@ -71,11 +74,12 @@ void expenses::Expenses_Info()
 
 		}
 
+
 		//get_reminig_income(reminig_cash, reminig_credit);
-		cout << "Do you want to enter another expenses ? (y/n) \n  ";
+		/*cout << "Do you want to enter another expenses ? (y/n) \n  ";
 		cin >> choose;
 
-	} while (choose == 'y' || choose == 'Y');
+	} while (choose == 'y' || choose == 'Y');*/
 
 
 
@@ -84,10 +88,16 @@ void expenses::Expenses_Info()
 
 }
 
-//void expenses::get_reminig_income(float reminigCash, float  reminigCredit)
-//{
-//	cout << "The reminig income is :" << reminigCash + reminigCash << endl;
-//}
+void expenses::get_reminig_income()
+{
+	float paid = 0;
+	for (int i = 0; i < Nexpenses ; i++)
+	{
+		paid += Amount[i];
+	}
+
+	cout << "The remaining income is : " << Income - paid << endl;
+}
 
 
 
@@ -124,7 +134,70 @@ void expenses::Make_Sure()
 
 
 }
+void expenses::SaveDataInFile()
+{
+	ofstream expensedata;
+	expensedata.open("ExpenseData.txt", ios::app);
+	expensedata << endl <<"Total Income : "<< Income << " " <<"Cash Amount : "<< wallet.getCash() << " " <<"Credit Amount : " << wallet.getCredit() << " ";
+	for (int i = 0; i < Nexpenses ; i++)
+	{
+		expensedata <<"Expense " << i+1 <<" : " << Name[i] << " " << Category[i] << " " << Amount[i] << " " << walletType[i] <<" ";
 
+	}
+}
+void expenses::Filter_By_Amount(int R1, int R2)
+{
+	//vector<float>::iterator it;
+	stack<string> filter_category; //taking a stack to save filtered expenses by categories
+	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
+	stack<string> filter_Name;
+	stack<date> filter_Date;
+
+	for (int i = 0; i <= Amount.size() - 1; i++) {
+		if (i >= R1 && i <= R2) {
+			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
+			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+		}
+	}
+
+	for (int i = 0; i <= Amount.size() - 1; i++) {
+		cout << filter_Name.top() << "\t" << filter_Date.top().day << "\t" << filter_category.top() << "\t" << filter_Amount.top() << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+	}
+}
+void expenses::Filter_By_Category(string c)
+{
+	//vector<string>::iterator it;
+	stack<string> filter_category; //taking a stack to save filtered expenses by categories
+	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
+	stack<string> filter_Name;
+	stack<date> filter_Date;
+
+	for (int i = 0; i <= Category.size() - 1; i++)
+	{
+		if (Category[i] == c) {
+			filter_category.push(Category[i]);
+			filter_Amount.push(Amount[i]);
+			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+		}
+
+	}
+	for (int i = 0; i <= Category.size() - 1; i++) 
+	{
+		cout << filter_Name.top() << "\t" << filter_Date.top().day << "\t" << filter_category.top() << "\t" << filter_Amount.top() << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_category.pop();
+		filter_Amount.pop();
+
+	}
+}
 expenses::~expenses()
 {
 }
