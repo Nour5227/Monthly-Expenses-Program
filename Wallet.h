@@ -13,6 +13,7 @@ public:
 	void SetCredit(float);
 	float getCash();
 	float getCredit();
+
 	~Wallet();
 };
 

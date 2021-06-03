@@ -6,6 +6,8 @@
 #include <string>
 #include <fstream>
 #include <stack>
+#include <queue>
+#include<ctime>
 using namespace std;
 
 
@@ -34,12 +36,13 @@ void expenses::Wallet_Components()
 
 void expenses::Expenses_Info()
 {
-	int day;
+	
+
+	int day , month , year;
 	string name, category;
 	float amount;
-
 	string choice;
-	//char choose;
+
 	
 		cout << "Enter how much is your income \n ";
 		cin >> Income;
@@ -47,6 +50,9 @@ void expenses::Expenses_Info()
 		Make_Sure();
 		float reminig_cash = wallet.getCash();
 		float reminig_credit = wallet.getCredit();
+		cout << "Enter The Month Number Of Expenses And The Year" << endl;
+		cin >> month >> year;
+		
 		cout << "Enter number of expenses : \n";
 		cin >> Nexpenses;
 
@@ -57,9 +63,10 @@ void expenses::Expenses_Info()
 			Name.push_back(name);
 			cout << "Enter The Day Of The Expense In This Month \n";
 			cin >> day;
-			Date.push_back({ day,5,2021 });
+			Date.push_back({ day,month,year});
 			cout << "Enter Category Of Expense " << i+1 << "\n ";
-			cin >> category;
+			cin.ignore();
+			getline(cin, category);
 			Category.push_back(category);
 			cout << "Enter Amount Of Expense " << i+1 << "\n";
 			cin >> amount;
@@ -67,24 +74,9 @@ void expenses::Expenses_Info()
 			cout << "Cash Or Credit ?\n";
 			cin >> choice;
 			walletType.push_back(choice);
-			/*if (choice == 'c' || choice == 'C')
-				reminig_cash = reminig_cash - amount;
-			else if (choice == 'r' || choice == 'R')
-				reminig_credit = reminig_credit - amount;*/
+			
 
 		}
-
-
-		//get_reminig_income(reminig_cash, reminig_credit);
-		/*cout << "Do you want to enter another expenses ? (y/n) \n  ";
-		cin >> choose;
-
-	} while (choose == 'y' || choose == 'Y');*/
-
-
-
-
-
 
 }
 
@@ -141,20 +133,21 @@ void expenses::SaveDataInFile()
 	expensedata << endl <<"Total Income : "<< Income << " " <<"Cash Amount : "<< wallet.getCash() << " " <<"Credit Amount : " << wallet.getCredit() << " ";
 	for (int i = 0; i < Nexpenses ; i++)
 	{
-		expensedata <<"Expense " << i+1 <<" : " << Name[i] << " " << Category[i] << " " << Amount[i] << " " << walletType[i] <<" ";
+		expensedata <<"Expense " << i+1 <<" : " << Name[i] << " " << Category[i] << " " << Amount[i] << " " << walletType[i] <<" "
+			<<" "<<"Date :" <<Date[i].day<< " /  " <<Date[i].month << " / " <<Date[i].year<<" ";
 
 	}
 }
 void expenses::Filter_By_Amount(int R1, int R2)
 {
 	//vector<float>::iterator it;
-	stack<string> filter_category; //taking a stack to save filtered expenses by categories
-	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
-	stack<string> filter_Name;
-	stack<date> filter_Date;
+	//stack<string> filter_category; //taking a stack to save filtered expenses by categories
+	//stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
+	//stack<string> filter_Name;
+	//stack<date> filter_Date;
 	
 		for (int i = 0; i <= Amount.size() - 1; i++) {
-			if (i >= R1 && i <= R2) {
+			if (Amount[i] >= R1 && Amount[i] <= R2) {
 				filter_Amount.push(Amount[i]);
 				filter_category.push(Category[i]);
 				filter_Name.push(Name[i]);
@@ -162,8 +155,9 @@ void expenses::Filter_By_Amount(int R1, int R2)
 			}
 		}
 
-		for (int i = 0; i <= Amount.size() - 1; i++) {
-			cout << "Name : " << filter_Name.top() << "\t" << "Day : " << filter_Date.top().day << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << endl;
+		for (int i = 0; !filter_Amount.empty(); i++) {
+			cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
+				filter_Date.top().year << endl;
 			filter_Name.pop();
 			filter_Date.pop();
 			filter_Amount.pop();
@@ -174,11 +168,11 @@ void expenses::Filter_By_Amount(int R1, int R2)
 }
 void expenses::Filter_By_Category(string c)
 {
-	//vector<string>::iterator it;
-	stack<string> filter_category; //taking a stack to save filtered expenses by categories
-	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
-	stack<string> filter_Name;
-	stack<date> filter_Date;
+	////vector<string>::iterator it;
+	//stack<string> filter_category; //taking a stack to save filtered expenses by categories
+	//stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
+	//stack<string> filter_Name;
+	//stack<date> filter_Date;
 
 	for (int i = 0; i <= Category.size() - 1; i++)
 	{
@@ -190,15 +184,198 @@ void expenses::Filter_By_Category(string c)
 		}
 
 	}
-	for (int i = 0; i <= Category.size() - 1; i++) 
+	for (int i = 0; !filter_Amount.empty(); i++)
 	{
-		cout << "Name : " << filter_Name.top() << "\t" << "Day : " << filter_Date.top().day << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
+			filter_Date.top().year << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_category.pop();
 		filter_Amount.pop();
 
 	}
+}
+void expenses::all()
+{
+	/*stack<string> filter_category;
+	stack<float> filter_Amount;
+	stack<string> filter_Name;
+	stack<date> filter_Date;*/
+
+	for (int i = 0; i <= Date.size() - 1; i++) {
+
+		filter_Date.push(Date[i]);
+		filter_Amount.push(Amount[i]);
+		filter_category.push(Category[i]);
+		filter_Name.push(Name[i]);
+
+	}
+
+	for (int i = 0; !filter_Amount.empty(); i++) {
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
+			filter_Date.top().year << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+	}
+
+
+}
+void expenses::Filter_By_Date(int D)
+{
+	/*stack<string> filter_category;
+	stack<float> filter_Amount;
+	stack<string> filter_Name;
+	stack<date> filter_Date;*/
+
+	for (int i = 0; i <= Date.size() - 1; i++) {
+		if (Date[i].day == D)
+		{
+			filter_Date.push(Date[i]);
+			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
+			filter_Name.push(Name[i]);
+
+		}
+	}
+	for (int i = 0; !filter_Amount.empty(); i++) {
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
+			filter_Date.top().year << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+	}
+
+}
+void expenses::Filter_by_Amount_Category(int l1, int l2, string s) {
+	/*queue<string> filter_category;
+	queue<float> filter_Amount;
+	queue<string> filter_Name;
+	queue<date> filter_Date;*/
+
+	for (int i = 0; i <= Amount.size() - 1; i++) {
+		if (Amount[i] >= l1 && Amount[i] <= l2 && Category[i] == s) {
+			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
+			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+		}
+	}
+	/*for (int i = 0; !filter_Amount.empty(); i++)
+	{
+		cout << "Name : " << filter_Name.front() << "\t" << "Day : " << filter_Date.front().day << "\t" << "Category : " << filter_category.front() << "\t" << "Amount : " << filter_Amount.front() << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_category.pop();
+		filter_Amount.pop();
+
+	}*/
+	for (int i = 0; !filter_Amount.empty(); i++) {
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" <<"Date : "<< filter_Date.top().day<<" / "<< filter_Date.top().month << " / " <<
+			filter_Date.top().year << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+	}
+
+
+
+}
+void expenses::Filter_by_Amount_Date(int n1, int n2, int d) {
+	/*queue<string> filter_category;
+	queue<float> filter_Amount;
+	queue<string> filter_Name;
+	queue<date> filter_Date;*/
+	for (int i = 0; i <= Amount.size() - 1; i++) {
+		if (Amount[i] >= n1 && Amount[i] <= n2 && Date[i].day == d) {
+			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
+			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+		}
+	}
+	/*for (int i = 0; !filter_Amount.empty(); i++)
+	{
+		cout << "Name : " << filter_Name.front() << "\t" << "Day : " << filter_Date.front().day << "\t" << "Category : " << filter_category.front() << "\t" << "Amount : " << filter_Amount.front() << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_category.pop();
+		filter_Amount.pop();
+
+	}*/
+	for (int i = 0; !filter_Amount.empty(); i++) {
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
+			filter_Date.top().year << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+	}
+
+}
+void expenses::Filter_by_Category_Date(string s, int d) {
+	/*queue<string> filter_category;
+	queue<float> filter_Amount;
+	queue<string> filter_Name;
+	queue<date> filter_Date;*/
+	for (int i = 0; i <= Category.size() - 1; i++) {
+		if (Date[i].day == d && Category[i] == s) {
+			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
+			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+		}
+	}
+	/*for (int i = 0; !filter_category.empty(); i++)
+	{
+		cout << "Name : " << filter_Name.front() << "\t" << "Day : " << filter_Date.front().day << "\t" << "Category : " << filter_category.front() << "\t" << "Amount : " << filter_Amount.front() << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_category.pop();
+		filter_Amount.pop();
+
+	}*/
+	for (int i = 0; !filter_Amount.empty(); i++) {
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
+			filter_Date.top().year << endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+	}
+
+}
+string expenses::getCategory() {
+	string category;
+	cout << "enter the name of the category" << endl;
+	cin.ignore();
+	getline(cin, category);
+
+	return category;
+}
+int expenses::getDay()
+{
+	int Day;
+	cout << "Enter the Day " << endl;
+	cin >> Day;
+	return Day;
+}
+float expenses::get_Minimum_Amount()
+{
+	int R1;
+	cout << "enter minimum amount" << endl;
+	cin >> R1;
+	return R1;
+}
+float expenses::get_Maximum_Amount()
+{
+	int R2;
+	cout << "enter maximum amount" << endl;
+	cin >> R2;
+	return R2;
 }
 expenses::~expenses()
 {
