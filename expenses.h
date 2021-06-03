@@ -59,5 +59,6 @@ public:
 	float get_Maximum_Amount();
 	int getDay();
 	string getCategory();
+	void check_total_paid(float total_cash, float total_credit);
 	~expenses();
 };

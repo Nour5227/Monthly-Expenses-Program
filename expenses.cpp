@@ -33,52 +33,66 @@ void expenses::Wallet_Components()
 
 }
 
-
 void expenses::Expenses_Info()
 {
-	
 
-	int day , month , year;
+	int day;
 	string name, category;
 	float amount;
+	float total_paid_cash = 0;
+	float total_paid_credit = 0;
 	string choice;
+	//char choose;
 
-	
-		cout << "Enter how much is your income \n ";
-		cin >> Income;
-		Wallet_Components();
-		Make_Sure();
-		float reminig_cash = wallet.getCash();
-		float reminig_credit = wallet.getCredit();
-		cout << "Enter The Month Number Of Expenses And The Year" << endl;
-		cin >> month >> year;
-		
-		cout << "Enter number of expenses : \n";
-		cin >> Nexpenses;
+	cout << "Enter how much is your income \n ";
+	cin >> Income;
+	Wallet_Components();
+	Make_Sure();
+	float reminig_cash = wallet.getCash();
+	float reminig_credit = wallet.getCredit();
+	cout << "Enter number of expenses : \n";
+	cin >> Nexpenses;
 
-		for (int i = 0 ; i < Nexpenses ; i++)
-		{
-			cout << "Enter Name Of Expense " << i+1 << "\n ";
-			cin >> name;
-			Name.push_back(name);
-			cout << "Enter The Day Of The Expense In This Month \n";
-			cin >> day;
-			Date.push_back({ day,month,year});
-			cout << "Enter Category Of Expense " << i+1 << "\n ";
-			cin.ignore();
-			getline(cin, category);
-			Category.push_back(category);
-			cout << "Enter Amount Of Expense " << i+1 << "\n";
-			cin >> amount;
-			Amount.push_back(amount);
-			cout << "Cash Or Credit ?\n";
-			cin >> choice;
-			walletType.push_back(choice);
-			
+	for (int i = 0; i < Nexpenses; i++)
+	{
+		cout << "Enter Name Of Expense " << i + 1 << "\n ";
+		cin.ignore();
+		getline(cin, name);
+		Name.push_back(name);
+		cout << "Enter The Day Of The Expense In This Month \n";
+		cin >> day;
+		Date.push_back({ day,5,2021 });
+		cout << "Enter Category Of Expense " << i + 1 << "\n ";
+		cin.ignore();
+		getline(cin, category);
+		Category.push_back(category);
+		cout << "Enter Amount Of Expense " << i + 1 << "\n";
+		cin >> amount;
+		Amount.push_back(amount);
+		cout << "Cash Or Credit ?\n";
+		cin.ignore();
+		getline(cin, choice);
+		walletType.push_back(choice);
 
-		}
+
+		if (choice.compare("cash") == 0 || choice.compare("CASH") == 0)
+			total_paid_cash += amount;
+
+		else if (choice.compare("credit") == 0 || choice.compare("CREDIT") == 0)
+			total_paid_credit += amount;
+
+	}
+
+	check_total_paid(total_paid_cash, total_paid_credit);
+
+	//get_reminig_income(reminig_cash, reminig_credit);
+	/*cout << "Do you want to enter another expenses ? (y/n) \n  ";
+	cin >> choose;
+} while (choose == 'y' || choose == 'Y');*/
+
 
 }
+
 
 void expenses::get_reminig_income()
 {
@@ -365,17 +379,28 @@ int expenses::getDay()
 }
 float expenses::get_Minimum_Amount()
 {
-	int R1;
+	int Minimum_Amount;
 	cout << "enter minimum amount" << endl;
-	cin >> R1;
-	return R1;
+	cin >> Minimum_Amount;
+	return Minimum_Amount;
 }
 float expenses::get_Maximum_Amount()
 {
-	int R2;
+	int Maximum_Amount;
 	cout << "enter maximum amount" << endl;
-	cin >> R2;
-	return R2;
+	cin >> Maximum_Amount;
+	return Maximum_Amount;
+
+}
+void expenses::check_total_paid(float total_cash, float total_credit)
+{
+	if (total_cash > wallet.getCash() || total_credit > wallet.getCredit())
+	{
+		cout << "The Total Paid Of Cash Or Credit Is Greater Than Cash O Credit \n ";
+		cout << "Please, Fill you your expenses again :\n  ";
+		Expenses_Info();
+	}
+
 }
 expenses::~expenses()
 {
