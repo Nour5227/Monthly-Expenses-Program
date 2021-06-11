@@ -13,18 +13,24 @@ using namespace std;
 class expenses
 {
 
-	float Income;
 	struct date
 	{
-		//time_t now = time(0);
-		//tm* ltm = localtime(&now);
 		int day;
 		int month;
 	    int year ;
 	};
+	float Income;
+	int day, month, year;
+	string name, category;
+	float amount ;
+	string choice;
+	int Nexpenses;
+	float total_paid_cash = 0;
+	float total_paid_credit = 0;
+	float remaining_Cash;
+	float remaining_Credit;
 
 	vector<date> Date;
-	int Nexpenses;
 	vector<float> Amount;
 	vector<string> Category;
 	vector<string> Name;
@@ -33,21 +39,20 @@ class expenses
 	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
 	stack<string> filter_Name;
 	stack<date> filter_Date;
-	/*queue<string> filter_category;
-	queue<float> filter_Amount;
-	queue<string> filter_Name;
-	queue<date> filter_Date;*/
+	
 	Wallet wallet = Wallet();
+
 
 public:
 
 	expenses();
 	void Wallet_Components();
-
 	void Expenses_Info();
 	void Make_Sure();
 	void SaveDataInFile();
-	void get_reminig_income();
+	void get_reminig_cash();
+	void get_reminig_credit();
+	void getRemainingForAllWallets();
 	void Filter_By_Category(string); //this function views the expenses depending on user's category
 	void Filter_By_Amount(int, int); //this function views expenses depending on user's money range
 	void all();

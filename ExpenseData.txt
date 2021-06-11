@@ -1,7 +1,0 @@
-
-Total Income : 1000 Cash Amount : 500 Credit Amount : 500 Expense 1 : fridge kitchen 200 cash 
-Total Income : 1000 Cash Amount : 500 Credit Amount : 500 Expense 1 : jfjf fjjf 100 cash Expense 2 : djsj sjsjf 400 credit 
-Total Income : 1000 Cash Amount : 500 Credit Amount : 500 Expense 1 : dsjsd food 300 cash 
-Total Income : 1000 Cash Amount : 500 Credit Amount : 500 Expense 1 : nour nouran 200 cash  Date 5 1 2020 
-Total Income : 1000 Cash Amount : 500 Credit Amount : 500 Expense 1 : nour nouran 200 cash  Date :4 /  1 / 2020 Expense 2 : seif hossam 400 credit  Date :7 /  1 / 2020 Expense 3 : omar khaled 200 cash  Date :19 /  1 / 2020 
-Total Income : 1000 Cash Amount : 500 Credit Amount : 500 Expense 1 : nour food 300 cash  Date :4 /  2 / 2020 
