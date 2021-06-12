@@ -42,7 +42,7 @@ void expenses::Wallet_Components()
 void expenses::Expenses_Info()
 {
 
-	cout << "Enter how much is your income \n ";
+	cout << "Enter how much is your income \n";
 	cin >> Income;
 	Wallet_Components();
 	Make_Sure();
@@ -53,21 +53,21 @@ void expenses::Expenses_Info()
 	cin >> month >> year;
 	for (int i = 0; i < Nexpenses; i++)
 	{
-		cout << "Enter Name Of Expense " << i + 1 << "\n ";
+		cout << "Enter Name Of Expense " << i + 1 << "\n";
 		cin.ignore();
 		getline(cin, name);
 		Name.push_back(name);
 		cout << "Enter The Day Of The Expense In This Month \n";
 		cin >> day;
 		Date.push_back({ day,month,year });
-		cout << "Enter Category Of Expense " << i + 1 << "\n ";
+		cout << "Enter Category Of Expense " << i + 1 << "\n";
 		cin.ignore();
 		getline(cin, category);
 		Category.push_back(category);
 		cout << "Enter Amount Of Expense " << i + 1 << "\n";
 		cin >> amount;
 		Amount.push_back(amount);
-		cout << "Cash Or Credit or debit ?\n";
+		cout << "cash or credit or debit ?\n";
 		cin.ignore();
 		getline(cin, choice);
 		walletType.push_back(choice);
@@ -166,16 +166,17 @@ void expenses::Filter_By_Amount(int R1, int R2)
 				filter_category.push(Category[i]);
 				filter_Name.push(Name[i]);
 				filter_Date.push(Date[i]);
+				filter_walletType.push(walletType[i]);
 			}
 		}
 
 		for (int i = 0; !filter_Amount.empty(); i++) {
-			cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
-				filter_Date.top().year << endl;
+			cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 			filter_Name.pop();
 			filter_Date.pop();
 			filter_Amount.pop();
 			filter_category.pop();
+			filter_walletType.pop();
 		}
 	
 	
@@ -187,21 +188,22 @@ void expenses::Filter_By_Category(string c)
 	for (int i = 0; i <= Category.size() - 1; i++)
 	{
 		if (Category[i] == c) {
-			filter_category.push(Category[i]);
 			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
 			filter_Name.push(Name[i]);
 			filter_Date.push(Date[i]);
+			filter_walletType.push(walletType[i]);
 		}
 
 	}
 	for (int i = 0; !filter_Amount.empty(); i++)
 	{
-		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
-			filter_Date.top().year << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
-		filter_category.pop();
 		filter_Amount.pop();
+		filter_category.pop();
+		filter_walletType.pop();
 
 	}
 }
@@ -211,20 +213,21 @@ void expenses::all()
 
 	for (int i = 0; i <= Date.size() - 1; i++) {
 
-		filter_Date.push(Date[i]);
 		filter_Amount.push(Amount[i]);
 		filter_category.push(Category[i]);
 		filter_Name.push(Name[i]);
+		filter_Date.push(Date[i]);
+		filter_walletType.push(walletType[i]);
 
 	}
 
 	for (int i = 0; !filter_Amount.empty(); i++) {
-		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
-			filter_Date.top().year << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_Amount.pop();
 		filter_category.pop();
+		filter_walletType.pop();
 	}
 
 
@@ -235,20 +238,21 @@ void expenses::Filter_By_Date(int D)
 	for (int i = 0; i <= Date.size() - 1; i++) {
 		if (Date[i].day == D)
 		{
-			filter_Date.push(Date[i]);
 			filter_Amount.push(Amount[i]);
 			filter_category.push(Category[i]);
 			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+			filter_walletType.push(walletType[i]);
 
 		}
 	}
 	for (int i = 0; !filter_Amount.empty(); i++) {
-		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
-			filter_Date.top().year << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_Amount.pop();
 		filter_category.pop();
+		filter_walletType.pop();
 	}
 
 }
@@ -260,16 +264,17 @@ void expenses::Filter_by_Amount_Category(int l1, int l2, string s) {
 			filter_category.push(Category[i]);
 			filter_Name.push(Name[i]);
 			filter_Date.push(Date[i]);
+			filter_walletType.push(walletType[i]);
 		}
 	}
 	
 	for (int i = 0; !filter_Amount.empty(); i++) {
-		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" <<"Date : "<< filter_Date.top().day<<" / "<< filter_Date.top().month << " / " <<
-			filter_Date.top().year << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_Amount.pop();
 		filter_category.pop();
+		filter_walletType.pop();
 	}
 
 
@@ -283,16 +288,17 @@ void expenses::Filter_by_Amount_Date(int n1, int n2, int d) {
 			filter_category.push(Category[i]);
 			filter_Name.push(Name[i]);
 			filter_Date.push(Date[i]);
+			filter_walletType.push(walletType[i]);
 		}
 	}
 	
 	for (int i = 0; !filter_Amount.empty(); i++) {
-		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
-			filter_Date.top().year << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_Amount.pop();
 		filter_category.pop();
+		filter_walletType.pop();
 	}
 
 }
@@ -304,16 +310,37 @@ void expenses::Filter_by_Category_Date(string s, int d) {
 			filter_category.push(Category[i]);
 			filter_Name.push(Name[i]);
 			filter_Date.push(Date[i]);
+			filter_walletType.push(walletType[i]);
 		}
 	}
 	
 	for (int i = 0; !filter_Amount.empty(); i++) {
-		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<
-			filter_Date.top().year << endl;
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " << filter_Date.top().year << " Wallet Type : " << filter_walletType.top() << endl;
 		filter_Name.pop();
 		filter_Date.pop();
 		filter_Amount.pop();
 		filter_category.pop();
+		filter_walletType.pop();
+	}
+
+}
+void expenses::Filter_by_wallet(string wallet) {
+	for (int i = 0; i < walletType.size(); i++) {
+		if (walletType[i] == wallet) {
+			filter_Amount.push(Amount[i]);
+			filter_category.push(Category[i]);
+			filter_Name.push(Name[i]);
+			filter_Date.push(Date[i]);
+			filter_walletType.push(walletType[i]);
+		}
+	}
+	for (int i = 0; !filter_walletType.empty(); i++) {
+		cout << "Name : " << filter_Name.top() << "\t" << "Category : " << filter_category.top() << "\t" << "Amount : " << filter_Amount.top() << "\t" << "Date : " << filter_Date.top().day << " / " << filter_Date.top().month << " / " <<filter_Date.top().year <<" Wallet Type : "<<filter_walletType.top()<< endl;
+		filter_Name.pop();
+		filter_Date.pop();
+		filter_Amount.pop();
+		filter_category.pop();
+		filter_walletType.pop();
 	}
 
 }
@@ -361,6 +388,12 @@ void expenses::getRemainingForAllWallets() {
 	get_reminig_cash();
 	get_reminig_credit();
 	get_reminig_debit();
+}
+string expenses::getWalletType() {
+	cout << "enter wallet type" << endl;
+	string walletType;
+	cin >> walletType;
+	return walletType;
 }
 expenses::~expenses()
 {

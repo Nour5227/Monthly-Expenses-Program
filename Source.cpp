@@ -16,7 +16,7 @@ int main()
 		{
 
 			cout << " \n How do you want to view your expenses?" << endl
-				<< "1.view all \n2.view by date \n3.view by category \n4.view by amount \n5.view by multiple\n6.view remaining cash\n7.view remaining credit\n8.view remaining debit\n9.view remaining money for all wallets or press 0 to exit\n";
+				<< "1.view all \n2.view by date \n3.view by category \n4.view by amount \n5.view by multiple\n6.view by wallet \n7.view remaining cash\n8.view remaining credit\n9.view remaining debit\n10.view remaining money for all wallets \n or press 0 to exit\n";
 			int filter_choice;
 			cin >> filter_choice;
 			if (filter_choice == 1)
@@ -68,19 +68,22 @@ int main()
 					
 				}
 			}
-			else if (filter_choice == 6)
+			else if (filter_choice == 6) {
+				EXPENSES.Filter_by_wallet(EXPENSES.getWalletType());
+			}
+			else if (filter_choice == 7)
 			{
 				EXPENSES.get_reminig_cash();
   			}
-			else if (filter_choice == 7)
+			else if (filter_choice == 8)
 			{
 				EXPENSES.get_reminig_credit();
 			}
-			else if (filter_choice == 8)
+			else if (filter_choice == 9)
 			{
 				EXPENSES.get_reminig_debit();
 			}
-			else if (filter_choice == 9 )
+			else if (filter_choice == 10 )
 			{
 				EXPENSES.get_reminig_cash();
 				EXPENSES.get_reminig_credit();

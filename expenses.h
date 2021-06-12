@@ -44,7 +44,7 @@ class expenses
 	stack<float> filter_Amount;  //taking a stack to save filtered expenses by amount
 	stack<string> filter_Name;
 	stack<date> filter_Date;
-	
+	stack<string>filter_walletType;
 	Wallet wallet = Wallet();
 
 
@@ -67,10 +67,12 @@ public:
 	void Filter_by_Amount_Category(int, int, string);
 	void Filter_by_Amount_Date(int, int, int);
 	void Filter_by_Category_Date(string, int);
+	void Filter_by_wallet(string);
 	float get_Minimum_Amount();
 	float get_Maximum_Amount();
 	int getDay();
 	string getCategory();
+	string getWalletType();
 	void check_total_paid(float total_cash, float total_credit, float total_debit);
 	~expenses();
 };
