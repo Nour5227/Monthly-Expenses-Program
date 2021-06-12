@@ -15,7 +15,7 @@ public:
 	float getCash();
 	float getCredit();
 	void setDebitCardAmount(float);
-	void getDebitCardAmount();
+	float getDebitCardAmount();
 
 	~Wallet();
 };

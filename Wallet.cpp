@@ -3,6 +3,8 @@ Wallet::Wallet()
 {
 	cash_income = 0;
 	credit_card = 0;
+	debit_card = 0;
+
 }
 
 void Wallet::SetCash(float cash)
@@ -23,6 +25,13 @@ float Wallet::getCash()
 float Wallet::getCredit()
 {
 	return credit_card;
+}
+void Wallet::setDebitCardAmount(float debit) {
+
+	debit_card = debit;
+}
+float Wallet::getDebitCardAmount() {
+	return debit_card;
 }
 
 

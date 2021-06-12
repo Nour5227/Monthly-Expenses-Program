@@ -12,6 +12,7 @@ using namespace std;
 
 
 
+
 expenses::expenses()
 {
 	Income = 0;
@@ -66,7 +67,7 @@ void expenses::Expenses_Info()
 		cout << "Enter Amount Of Expense " << i + 1 << "\n";
 		cin >> amount;
 		Amount.push_back(amount);
-		cout << "Cash Or Credit ?\n";
+		cout << "Cash Or Credit or debit ?\n";
 		cin.ignore();
 		getline(cin, choice);
 		walletType.push_back(choice);
@@ -78,9 +79,13 @@ void expenses::Expenses_Info()
 		else if (choice.compare("credit") == 0 || choice.compare("CREDIT") == 0)
 			total_paid_credit += amount;
 
+		else if (choice.compare("debit") == 0 || choice.compare("DEBIT") == 0)
+			total_paid_debit += amount;
+
+
 	}
 
-	check_total_paid(total_paid_cash, total_paid_credit);
+	check_total_paid(total_paid_cash, total_paid_credit,total_paid_debit);
 
 	
 
@@ -99,6 +104,11 @@ void expenses::get_reminig_credit()
 	remaining_Credit = wallet.getCredit() - total_paid_credit;
 	cout << "The remaining credit is : " << remaining_Credit << endl;
 }
+void expenses::get_reminig_debit()
+{
+	remaining_debit = wallet.getDebitCardAmount() - total_paid_debit;
+	cout << "The remaining debit is : " << remaining_debit << endl;
+}
 
 
 
@@ -108,21 +118,22 @@ void expenses::Make_Sure()
 
 	while (true)
 	{
-		if (Income == wallet.getCash() + wallet.getCredit())
+		if (Income == wallet.getCash() + wallet.getCredit() + wallet.getDebitCardAmount())
 			break;
 
 		else
 		{
-			cout << "The total income should equal cash income + credit card icnome" << endl;
-			cout << " Enter cash and credit in order \n";
-			float Cash, Credit;
+			cout << "The total income should equal cash income + credit card icnome + debit card income " << endl;
+			cout << " Enter cash , credit and debit in order \n";
+			float Cash, Credit,debit;
 			cin >> Cash;
 			wallet.SetCash(Cash);
 			cin >> Credit;
 			wallet.SetCredit(Credit);
+			cin >> debit;
+			wallet.setDebitCardAmount(debit);
 
-
-			if (Income == wallet.getCash() + wallet.getCredit())
+			if (Income == wallet.getCash() + wallet.getCredit() + wallet.getDebitCardAmount())
 			{
 				cout << " success \n";
 				break;
@@ -139,7 +150,7 @@ void expenses::SaveDataInFile()
 {
 	ofstream expensedata;
 	expensedata.open("ExpenseData.csv", ios::app);
-	expensedata << endl <<"Total Income : "<< Income << " " <<"Cash Amount : "<< wallet.getCash() << " " <<"Credit Amount : " << wallet.getCredit() << " " << "Remaining cash : "<<remaining_Cash << " Remaining credit : "<<remaining_Credit;
+	expensedata << endl << "Total Income : " << Income << " " << "Cash Amount : " << wallet.getCash() << " " << "Credit Amount : " << wallet.getCredit() << " " << "Debit Amount : " << wallet.getDebitCardAmount() << "Remaining cash : " << remaining_Cash << " Remaining credit : " << remaining_Credit << " Remaining debit : " << remaining_debit;
 	for (int i = 0; i < Nexpenses ; i++)
 	{
 		expensedata <<"Expense " << i+1 <<" : " <<"Name : "<< Name[i] << " " << "Category : " << Category[i] << " " << "Amount : " << Amount[i] << " " << "Wallet Type : " << walletType[i] <<" "<<"Date : " <<Date[i].day<< " /  " <<Date[i].month << " / " <<Date[i].year<<" ";
@@ -336,11 +347,11 @@ float expenses::get_Maximum_Amount()
 	return Maximum_Amount;
 
 }
-void expenses::check_total_paid(float total_cash, float total_credit)
+void expenses::check_total_paid(float total_cash, float total_credit, float total_debit)
 {
-	if (total_cash > wallet.getCash() || total_credit > wallet.getCredit())
+	if (total_cash > wallet.getCash() || total_credit > wallet.getCredit()|| total_debit > wallet.getDebitCardAmount())
 	{
-		cout << "The Total Paid Of Cash Or Credit Is Greater Than Cash O Credit \n ";
+		cout << "The Total Paid Of Cash Or Credit or debit Is Greater Than Cash Or Credit Or debit \n ";
 		cout << "Please, Fill you your expenses again :\n  ";
 		Expenses_Info();
 	}
@@ -349,6 +360,7 @@ void expenses::check_total_paid(float total_cash, float total_credit)
 void expenses::getRemainingForAllWallets() {
 	get_reminig_cash();
 	get_reminig_credit();
+	get_reminig_debit();
 }
 expenses::~expenses()
 {

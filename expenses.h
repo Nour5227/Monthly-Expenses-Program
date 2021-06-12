@@ -27,8 +27,13 @@ class expenses
 	int Nexpenses;
 	float total_paid_cash = 0;
 	float total_paid_credit = 0;
+	float total_paid_debit = 0;
+
+
 	float remaining_Cash;
 	float remaining_Credit;
+	float remaining_debit;
+
 
 	vector<date> Date;
 	vector<float> Amount;
@@ -52,6 +57,8 @@ public:
 	void SaveDataInFile();
 	void get_reminig_cash();
 	void get_reminig_credit();
+	void get_reminig_debit();
+
 	void getRemainingForAllWallets();
 	void Filter_By_Category(string); //this function views the expenses depending on user's category
 	void Filter_By_Amount(int, int); //this function views expenses depending on user's money range
@@ -64,6 +71,6 @@ public:
 	float get_Maximum_Amount();
 	int getDay();
 	string getCategory();
-	void check_total_paid(float total_cash, float total_credit);
+	void check_total_paid(float total_cash, float total_credit, float total_debit);
 	~expenses();
 };
