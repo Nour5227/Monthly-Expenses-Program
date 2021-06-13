@@ -15,7 +15,7 @@ int main()
 
 			while (true)
 			{
-				if (EXPENSES.getNexpenses() == 0) {
+				if (EXPENSES.getNexpenses() <= 0) {
 							break;
 				}
 				else

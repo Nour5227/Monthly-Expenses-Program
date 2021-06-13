@@ -49,7 +49,7 @@ void expenses::Expenses_Info()
 	
 	cout << "Enter number of expenses : \n";
 	cin >> Nexpenses;
-	if (Nexpenses == 0) {
+	if (Nexpenses <= 0) {
 		cout << "there is no expenses to track" << endl;
 	}
 	else
