@@ -59,23 +59,22 @@ void expenses::Expenses_Info()
 		cin >> month >> year;
 		for (int i = 0; i < Nexpenses; i++)
 		{
-			cout << "Enter Name Of Expense " << i + 1 << "\n";
 			cin.ignore();
+			cout << "Enter Name Of Expense " << i + 1 <<endl;
 			getline(cin, name);
 			Name.push_back(name);
 			cout << "Enter The Day Of The Expense In This Month \n";
 			cin >> day;
 			Date.push_back({ day,month,year });
-			cout << "Enter Category Of Expense " << i + 1 << "\n";
 			cin.ignore();
+			cout << "Enter Category Of Expense " << i + 1 << "\n";
 			getline(cin, category);
 			Category.push_back(category);
 			cout << "Enter Amount Of Expense " << i + 1 << "\n";
 			cin >> amount;
 			Amount.push_back(amount);
 			cout << "cash or credit or debit ?\n";
-			cin.ignore();
-			getline(cin, choice);
+			cin >> choice;
 			walletType.push_back(choice);
 
 
@@ -87,7 +86,6 @@ void expenses::Expenses_Info()
 
 			else if (choice.compare("debit") == 0 || choice.compare("DEBIT") == 0)
 				total_paid_debit += amount;
-
 
 		}
 	}

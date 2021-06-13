@@ -104,8 +104,8 @@ int main()
 				}
 
 			}
-		EXPENSES.SaveDataInFile();
 
+		EXPENSES.SaveDataInFile();
 		cout << "Do You Want To Enter Another Expenses ? (y/n)" << endl;
 		cin >> answer;
 	} while (answer == 'Y' || answer == 'y');
