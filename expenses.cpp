@@ -154,7 +154,7 @@ void expenses::Make_Sure()
 
 
 }
-void expenses::SaveDataInFile()
+void expenses::SaveDataInCSV()
 {
 	ofstream expensedata;
 	expensedata.open("ExpenseData.csv", ios::app);

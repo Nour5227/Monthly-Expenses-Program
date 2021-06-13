@@ -55,7 +55,7 @@ public:
 	void Expenses_Info();
 	int getNexpenses();
 	void Make_Sure();
-	void SaveDataInFile();
+	void SaveDataInCSV();
 	void get_reminig_cash();
 	void get_reminig_credit();
 	void get_reminig_debit();
