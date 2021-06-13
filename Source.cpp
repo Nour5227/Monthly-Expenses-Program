@@ -92,9 +92,8 @@ int main()
 					}
 					else if (filter_choice == 10)
 					{
-						EXPENSES.get_reminig_cash();
-						EXPENSES.get_reminig_credit();
-						EXPENSES.get_reminig_debit();
+						EXPENSES.getRemainingForAllWallets();
+						
 					}
 
 					else if (filter_choice == 0)
