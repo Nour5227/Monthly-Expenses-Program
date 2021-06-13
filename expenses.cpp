@@ -49,46 +49,56 @@ void expenses::Expenses_Info()
 	
 	cout << "Enter number of expenses : \n";
 	cin >> Nexpenses;
-	cout << "Enter The Month Number Of Expenses And The Year" << endl;
-	cin >> month >> year;
-	for (int i = 0; i < Nexpenses; i++)
+	if (Nexpenses == 0) {
+		cout << "there is no expenses to track" << endl;
+	}
+	else
 	{
-		cout << "Enter Name Of Expense " << i + 1 << "\n";
-		cin.ignore();
-		getline(cin, name);
-		Name.push_back(name);
-		cout << "Enter The Day Of The Expense In This Month \n";
-		cin >> day;
-		Date.push_back({ day,month,year });
-		cout << "Enter Category Of Expense " << i + 1 << "\n";
-		cin.ignore();
-		getline(cin, category);
-		Category.push_back(category);
-		cout << "Enter Amount Of Expense " << i + 1 << "\n";
-		cin >> amount;
-		Amount.push_back(amount);
-		cout << "cash or credit or debit ?\n";
-		cin.ignore();
-		getline(cin, choice);
-		walletType.push_back(choice);
+
+		cout << "Enter The Month Number Of Expenses And The Year" << endl;
+		cin >> month >> year;
+		for (int i = 0; i < Nexpenses; i++)
+		{
+			cout << "Enter Name Of Expense " << i + 1 << "\n";
+			cin.ignore();
+			getline(cin, name);
+			Name.push_back(name);
+			cout << "Enter The Day Of The Expense In This Month \n";
+			cin >> day;
+			Date.push_back({ day,month,year });
+			cout << "Enter Category Of Expense " << i + 1 << "\n";
+			cin.ignore();
+			getline(cin, category);
+			Category.push_back(category);
+			cout << "Enter Amount Of Expense " << i + 1 << "\n";
+			cin >> amount;
+			Amount.push_back(amount);
+			cout << "cash or credit or debit ?\n";
+			cin.ignore();
+			getline(cin, choice);
+			walletType.push_back(choice);
 
 
-		if (choice.compare("cash") == 0 || choice.compare("CASH") == 0)
-			total_paid_cash += amount;
+			if (choice.compare("cash") == 0 || choice.compare("CASH") == 0)
+				total_paid_cash += amount;
 
-		else if (choice.compare("credit") == 0 || choice.compare("CREDIT") == 0)
-			total_paid_credit += amount;
+			else if (choice.compare("credit") == 0 || choice.compare("CREDIT") == 0)
+				total_paid_credit += amount;
 
-		else if (choice.compare("debit") == 0 || choice.compare("DEBIT") == 0)
-			total_paid_debit += amount;
+			else if (choice.compare("debit") == 0 || choice.compare("DEBIT") == 0)
+				total_paid_debit += amount;
 
 
+		}
 	}
 
 	check_total_paid(total_paid_cash, total_paid_credit,total_paid_debit);
 
-	
+}
 
+int expenses::getNexpenses()
+{
+	return Nexpenses;
 }
 
 

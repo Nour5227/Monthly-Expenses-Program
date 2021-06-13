@@ -53,6 +53,7 @@ public:
 	expenses();
 	void Wallet_Components();
 	void Expenses_Info();
+	int getNexpenses();
 	void Make_Sure();
 	void SaveDataInFile();
 	void get_reminig_cash();
